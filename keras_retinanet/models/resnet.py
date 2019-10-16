@@ -14,8 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import keras
-from keras.utils import get_file
+from tensorflow.python import keras
+from tensorflow.python.keras.utils import get_file
 import keras_resnet
 import keras_resnet.models
 

@@ -18,7 +18,7 @@ import numpy as np
 import random
 import warnings
 
-import keras
+from tensorflow.python import keras
 
 from ..utils.anchors import (
     anchor_targets_bbox,

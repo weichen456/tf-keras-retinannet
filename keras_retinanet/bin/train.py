@@ -21,8 +21,8 @@ import os
 import sys
 import warnings
 
-import keras
-import keras.preprocessing.image
+from tensorflow.python import keras
+#from tensorflow.python import keras.preprocessing.image
 import tensorflow as tf
 
 # Allow relative imports when being executed as script.
@@ -44,7 +44,6 @@ from ..preprocessing.open_images import OpenImagesGenerator
 from ..preprocessing.pascal_voc import PascalVocGenerator
 from ..utils.anchors import make_shapes_callback
 from ..utils.config import read_config_file, parse_anchor_parameters
-from ..utils.keras_version import check_keras_version
 from ..utils.model import freeze as freeze_model
 from ..utils.transform import random_transform_generator
 from ..utils.image import random_visual_effect_generator
@@ -442,8 +441,6 @@ def main(args=None):
     # create object that stores backbone information
     backbone = models.backbone(args.backbone)
 
-    # make sure keras is the minimum required version
-    check_keras_version()
 
     # optionally choose specific GPU
     if args.gpu:

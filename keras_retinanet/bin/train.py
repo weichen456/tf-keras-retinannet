@@ -25,7 +25,7 @@ from tensorflow.python import keras
 #from tensorflow.python import keras.preprocessing.image
 import tensorflow as tf
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0，1"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 # Allow relative imports when being executed as script.
 if __name__ == "__main__" and __package__ is None:
     sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -149,7 +149,6 @@ def create_callbacks(model, training_model, prediction_model, validation_generat
         tensorboard_callback = keras.callbacks.TensorBoard(
             log_dir                = args.tensorboard_dir,
             histogram_freq         = 0,
-            batch_size             = args.batch_size,
             write_graph            = True,
             write_grads            = False,
             write_images           = False,

@@ -25,6 +25,7 @@ from tensorflow.python import keras
 #from tensorflow.python import keras.preprocessing.image
 import tensorflow as tf
 
+os.environ["CUDA_VISIBLE_DEVICES"] = "0，1"
 # Allow relative imports when being executed as script.
 if __name__ == "__main__" and __package__ is None:
     sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -61,16 +62,16 @@ def makedirs(path):
             raise
 
 
-def model_with_weights(model, weights, skip_mismatch):
+def model_with_weights(model, weights):
     """ Load weights for model.
 
     Args
         model         : The model to load weights for.
         weights       : The weights to load.
-        skip_mismatch : If True, skips layers whose shape of weights doesn't match with the model.
+
     """
     if weights is not None:
-        model.load_weights(weights, by_name=True, skip_mismatch=skip_mismatch)
+        model.load_weights(weights, by_name=True)
     return model
 
 
@@ -106,10 +107,10 @@ def create_models(backbone_retinanet, num_classes, weights, multi_gpu=0,
     if multi_gpu > 1:
         from keras.utils import multi_gpu_model
         with tf.device('/cpu:0'):
-            model = model_with_weights(backbone_retinanet(num_classes, num_anchors=num_anchors, modifier=modifier), weights=weights, skip_mismatch=True)
+            model = model_with_weights(backbone_retinanet(num_classes, num_anchors=num_anchors, modifier=modifier), weights=weights)
         training_model = multi_gpu_model(model, gpus=multi_gpu)
     else:
-        model          = model_with_weights(backbone_retinanet(num_classes, num_anchors=num_anchors, modifier=modifier), weights=weights, skip_mismatch=True)
+        model          = model_with_weights(backbone_retinanet(num_classes, num_anchors=num_anchors, modifier=modifier), weights=weights)
         training_model = model
 
     # make prediction model
